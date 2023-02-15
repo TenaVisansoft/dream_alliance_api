@@ -27,7 +27,7 @@ Route::get('/currency/{id}', [CurrencyController::class, 'currency']);
 Route::get('currencies', [CurrencyController::class, 'currencies']);
 
 
-//General api's
+//General api's for registeration form
 Route::get('religion',[GeneralController::class, 'religion'])->name('religion');
 Route::get('caste/{id}',[GeneralController::class, 'caste'])->name('caste');
 Route::get('sub_caste/{id}',[GeneralController::class, 'sub_caste'])->name('sub_caste');
