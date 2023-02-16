@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\ResponseHelper;
@@ -13,7 +14,7 @@ class AuthController extends Controller
 {
     use ResponseHelper, Utility;
 
-    public function register(Request $request){
+    public function register(Request $request, User $user){
 
         $rules = array(
             'email' => 'required|email|unique:users,email',
@@ -38,7 +39,7 @@ class AuthController extends Controller
             'password' => \Hash::make($request->password),
         ]);
 
-        return $this->successResponse($user, 200,"Successfully Registered");
+        return $this->successResponse(new UserResource($user), 200,"Successfully Registered");
     }
 
     public function login(Request $request)
@@ -65,7 +66,7 @@ class AuthController extends Controller
 
         if ($user && \Hash::check($request->password, $user->password)) {
 
-            return $this->successResponse($user,200,'Successfully Logged in');
+            return $this->successResponse(new UserResource($user),200,'Successfully Logged in');
         }
         else {
             return $this->errorResponse("Invalid Login Credentials",400,"Failed to Login");

@@ -13,27 +13,12 @@ class UserResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    protected $withoutFields = ['email','phone'];
-
-    public function hide(array $fields)
-    {
-        $this->withoutFields = $fields;
-        return $this;
-    }
-
-    protected function filterFields($array)
-    {
-        return collect($array)->forget($this->withoutFields)->toArray();
-    }
-
 
     public function toArray($request)
     {
-       return $this->filterFields([
+       return [
             'id' => $this->id,
-            'name' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone
-        ]);
+        ];
     }
 }

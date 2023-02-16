@@ -22,10 +22,6 @@ use App\Http\Controllers\api\CurrencyController;
 //     return $request->user();
 // });
 
-//With resource and collection
-Route::get('/currency/{id}', [CurrencyController::class, 'currency']);
-Route::get('currencies', [CurrencyController::class, 'currencies']);
-
 
 //General api's for registeration form
 Route::get('religion',[GeneralController::class, 'religion'])->name('religion');

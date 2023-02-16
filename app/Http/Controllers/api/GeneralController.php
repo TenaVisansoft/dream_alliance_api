@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\ResponseHelper;
 use App\Traits\Utility;
+use App\Http\Resources\CommonCollection;
 use App\Models\Religion;
 use App\Models\Caste;
 use App\Models\SubCaste;
@@ -47,218 +48,183 @@ class GeneralController extends Controller
 {
     use ResponseHelper, Utility;
 
-    public function religion(Request $request)
+    public function religion(Religion $religion)
     {
-        $religions = Religion::all();
-        return $this->successResponse($religions, 200,"Successfully returned all religions");
+        return $this->successResponse(new CommonCollection($religion->select('id','name')->get()) , 200,'Successfully returned all religion');
         
     }
 
-    public function caste($id,Request $request){
+    public function caste($id,Caste $caste){
 
-        $castes = Caste::where('religion_id',$id)->get();
-        return $this->successResponse($castes, 200,"Successfully returned all castes in this religion");
+        return $this->successResponse(new CommonCollection($caste->where('religion_id',$id)->select('id','name')->get()) , 200,'Successfully returned all caste');
     }
 
-    public function sub_caste($id,Request $request){
+    public function sub_caste($id,SubCaste $sub_caste){
 
-        $castes = SubCaste::where('caste_id',$id)->get();
-        return $this->successResponse($castes, 200,"Successfully returned all sub castes in this caste");
+        return $this->successResponse(new CommonCollection($sub_caste->where('caste_id',$id)->select('id','name')->get()) , 200,'Successfully returned all sub caste');
     }
 
-    public function gender(Request $request)
+    public function gender(Gender $gender)
     {
-        $genders = Gender::all();
-        return $this->successResponse($genders, 200,"Successfully returned all genders");
+        return $this->successResponse(new CommonCollection($gender->select('id','name')->get()) , 200,'Successfully returned all gender');
     }
 
-    public function currency(Request $request)
+    public function currency(Currency $currency)
     {
-        $currencies = Currency::all();
-        return $this->successResponse($currencies, 200,"Successfully returned all currencies");
+        return $this->successResponse(new CommonCollection($currency->select('id','name')->get()) , 200,'Successfully returned all currencies');
     }
 
-    public function language(Request $request)
+    public function language(Language $language)
     {
-        $languages = Language::all();
-        return $this->successResponse($languages, 200,"Successfully returned all languages");
+        return $this->successResponse(new CommonCollection($language->select('id','name')->get()) , 200,'Successfully returned all language');
     }
 
-    public function marital_status(Request $request)
+    public function marital_status(MaritalStatus $marital_status)
     {
-        $marital_status = MaritalStatus::all();
-        return $this->successResponse($marital_status, 200,"Successfully returned all marital status");
+        return $this->successResponse(new CommonCollection($marital_status->select('id','name')->get()) , 200,'Successfully returned all marital_status');
     }
 
-    public function height(Request $request)
+    public function height(Height $height)
     {
-        $heights = Height::all();
-        return $this->successResponse($heights, 200,"Successfully returned all heights");
+         return $this->successResponse(new CommonCollection($height->select('id','name')->get()) , 200,'Successfully returned all height');
     }
 
-    public function weight(Request $request)
+    public function weight(Weight $weight)
     {
-        $weights = Weight::all();
-        return $this->successResponse($weights, 200,"Successfully returned all weights");
+        return $this->successResponse(new CommonCollection($weight->select('id','name')->get()) , 200,'Successfully returned all weight');
     }
 
-    public function family_status(Request $request)
+    public function family_status(FamilyStatus $family_status)
     {
-        $family_statuses = FamilyStatus::all();
-        return $this->successResponse($family_statuses, 200,"Successfully returned all family statuses");
+        return $this->successResponse(new CommonCollection($family_status->select('id','name')->get()) , 200,'Successfully returned all family status');
     }
 
-    public function family_value(Request $request)
+    public function family_value(FamilyValue $family_value)
     {
-        $family_values = FamilyValue::all();
-        return $this->successResponse($family_values, 200,"Successfully returned all family values");
+        return $this->successResponse(new CommonCollection($family_value->select('id','name')->get()) , 200,'Successfully returned all family value');
     }
 
-    public function family_type(Request $request)
+    public function family_type(FamilyType $family_type)
     {
-        $family_types = FamilyType::all();
-        return $this->successResponse($family_types, 200,"Successfully returned all family types");
+        return $this->successResponse(new CommonCollection($family_type->select('id','name')->get()) , 200,'Successfully returned all family type');
     }
 
-    public function occupation_category(Request $request)
+    public function occupation_category(OccupationCategory $occupation_category)
     {
-        $occupation_categories = OccupationCategory::all();
-        return $this->successResponse($occupation_categories, 200,"Successfully returned all occupation categories");
+        return $this->successResponse(new CommonCollection($occupation_category->select('id','name')->get()) , 200,'Successfully returned all occupation category');
     }
 
-    public function occupation($id,Request $request)
+    public function occupation($id,Occupation $occupation)
     {
-        $occupations = Occupation::where('occupation_category_id',$id)->get();
-        return $this->successResponse($occupations, 200,"Successfully returned all occupations");
+
+        return $this->successResponse(new CommonCollection($occupation->where('occupation_category_id',$id)->select('id','name')->get()) , 200,'Successfully returned all occupations');
     }
 
-    public function education_category(Request $request)
+    public function education_category(EducationCategory $education_category)
     {
-        $education_categories = EducationCategory::all();
-        return $this->successResponse($education_categories, 200,"Successfully returned all education categories");
+        return $this->successResponse(new CommonCollection($education_category->select('id','name')->get()) , 200,'Successfully returned all education category');
     }
 
-    public function education($id,Request $request)
+    public function education($id,Education $education)
     {
-        $educations = Education::where('education_category_id',$id)->get();
-        return $this->successResponse($educations, 200,"Successfully returned all educations");
+        return $this->successResponse(new CommonCollection($education->where('education_category_id',$id)->select('id','name')->get()) , 200,'Successfully returned all educations');
     }
 
-    public function annual_income(Request $request)
+    public function annual_income(AnnualIncome $annual_income)
     {
-        $annual_incomes = AnnualIncome::all();
-        return $this->successResponse($annual_incomes, 200,"Successfully returned all annual income list");
+        return $this->successResponse(new CommonCollection($annual_income->select('id','name')->get()) , 200,'Successfully returned all education category');
     }
 
-    public function country(Request $request)
+    public function country(Country $country)
     {
-        $countries = Country::all();
-        return $this->successResponse($countries, 200,"Successfully returned all countries");
+        return $this->successResponse(new CommonCollection($country->select('id','name')->get()) , 200,'Successfully returned all country');
     }
 
-    public function state($id,Request $request)
+    public function state($id,State $state)
     {
-        $states = State::where('country_id',$id)->get();
-        return $this->successResponse($states, 200,"Successfully returned all states");
+        return $this->successResponse(new CommonCollection($state->where('country_id',$id)->select('id','name')->get()) , 200,'Successfully returned all states');
     }
 
-    public function district($id,Request $request)
+    public function district($id,District $district)
     {
-        $districts = District::where('state_id',$id)->get();
-        return $this->successResponse($districts, 200,"Successfully returned all districts");
+        return $this->successResponse(new CommonCollection($district->where('state_id',$id)->select('id','name')->get()) , 200,'Successfully returned all districts');
     }
 
-    public function city($id,Request $request)
+    public function city($id,City $city)
     {
-        $cities = City::where('state_id',$id)->get();
-        return $this->successResponse($cities, 200,"Successfully returned all cities");
+        return $this->successResponse(new CommonCollection($city->where('state_id',$id)->select('id','name')->get()) , 200,'Successfully returned all cities');
     }
 
-    public function eating_habit(Request $request)
+    public function eating_habit(EatingHabit $eating_habit)
     {
-        $eating_habits = EatingHabit::all();
-        return $this->successResponse($eating_habits, 200,"Successfully returned all eating_habits");
+        return $this->successResponse(new CommonCollection($eating_habit->select('id','name')->get()) , 200,'Successfully returned all eating habits');
     }
 
-    public function smoking_habit(Request $request)
+    public function smoking_habit(SmokingHabit $smoking_habit)
     {
-        $smoking_habits = SmokingHabit::all();
-        return $this->successResponse($smoking_habits, 200,"Successfully returned all smoking_habits");
+        return $this->successResponse(new CommonCollection($smoking_habit->select('id','name')->get()) , 200,'Successfully returned all smoking habits');
     }
 
-    public function drinking_habit(Request $request)
+    public function drinking_habit(DrinkingHabit $drinking_habit)
     {
-        $drinking_habits = DrinkingHabit::all();
-        return $this->successResponse($drinking_habits, 200,"Successfully returned all drinking_habits");
+        return $this->successResponse(new CommonCollection($drinking_habit->select('id','name')->get()) , 200,'Successfully returned all drinking habits');
     }
 
-    public function employed_in(Request $request)
+    public function employed_in(EmployedIn $employed_in)
     {
-        $employed_ins = EmployedIn::all();
-        return $this->successResponse($employed_ins, 200,"Successfully returned all employed_ins");
+        return $this->successResponse(new CommonCollection($employed_in->select('id','name')->get()) , 200,'Successfully returned all employed in list');
     }
 
-    public function intrest(Request $request)
+    public function intrest(Interest $intrest)
     {
-        $intrests = Interest::all();
-        return $this->successResponse($intrests, 200,"Successfully returned all intrests");
+        return $this->successResponse(new CommonCollection($intrest->select('id','name')->get()) , 200,'Successfully returned all intrest');
     }
 
-    public function physical_status(Request $request)
+    public function physical_status(PhysicalStatus $physical_status)
     {
-        $physical_statuses = PhysicalStatus::all();
-        return $this->successResponse($physical_statuses, 200,"Successfully returned all physical_statuses");
+        return $this->successResponse(new CommonCollection($physical_status->select('id','name')->get()) , 200,'Successfully returned all physical status');
     }
 
-    public function star(Request $request)
+    public function star(Star $star)
     {
-        $stars = Star::all();
-        return $this->successResponse($stars, 200,"Successfully returned all stars");
+        return $this->successResponse(new CommonCollection($star->select('id','name')->get()) , 200,'Successfully returned all star');
     }
 
-    public function dosham(Request $request)
+    public function dosham(Dosham $dosham)
     {
-        $doshams = Dosham::all();
-        return $this->successResponse($doshams, 200,"Successfully returned all doshams");
+        return $this->successResponse(new CommonCollection($dosham->select('id','name')->get()) , 200,'Successfully returned all dosham');
     }
 
-    public function zodiac(Request $request)
+    public function zodiac(Zodiac $zodiac)
     {
-        $zodiacs = Zodiac::all();
-        return $this->successResponse($zodiacs, 200,"Successfully returned all zodiacs");
+        return $this->successResponse(new CommonCollection($zodiac->select('id','name')->get()) , 200,'Successfully returned all zodiac');
     }
 
-    public function body_type(Request $request)
+    public function body_type(BodyType $body_type)
     {
-        $body_types = BodyType::all();
-        return $this->successResponse($body_types, 200,"Successfully returned all body_types");
+        return $this->successResponse(new CommonCollection($body_type->select('id','name')->get()) , 200,'Successfully returned all body type');
     }
 
-    public function hobby(Request $request)
+    public function hobby(Hobby $hobby)
     {
-        $hobbies = Hobby::all();
-        return $this->successResponse($hobbies, 200,"Successfully returned all hobbies");
+        return $this->successResponse(new CommonCollection($hobby->select('id','name')->get()) , 200,'Successfully returned all hobby');
         
     }
 
-    public function father_occupation(Request $request)
+    public function father_occupation(FatherOccupation $father_occupation)
     {
-        $father_occupations = FatherOccupation::all();
-        return $this->successResponse($father_occupations, 200,"Successfully returned all father_occupation list");
+        return $this->successResponse(new CommonCollection($father_occupation->select('id','name')->get()) , 200,'Successfully returned all father occupation');
         
     }
 
-    public function mother_occupation(Request $request)
+    public function mother_occupation(MotherOccupation $mother_occupation)
     {
-        $mother_occupations = MotherOccupation::all();
-        return $this->successResponse($mother_occupations, 200,"Successfully returned all mother_occupation list");
+        return $this->successResponse(new CommonCollection($mother_occupation->select('id','name')->get()) , 200,'Successfully returned all mother occupation');
         
     }
 
-    public function resident_status(Request $request)
+    public function resident_status(ResidentStatus $resident_status)
     {
-        $resident_statuses = ResidentStatus::all();
-        return $this->successResponse($resident_statuses, 200,"Successfully returned all resident_statuses");
-        
+        return $this->successResponse(new CommonCollection($resident_status->select('id','name')->get()) , 200,'Successfully returned all resident status');
     }
 }

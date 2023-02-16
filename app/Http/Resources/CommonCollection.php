@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class CommonCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -12,8 +12,6 @@ class UserCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-
-    
     public function toArray($request)
     {
         return parent::toArray($request);
