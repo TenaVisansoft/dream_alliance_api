@@ -42,6 +42,7 @@ use App\Models\Hobby;
 use App\Models\MotherOccupation;
 use App\Models\FatherOccupation;
 use App\Models\ResidentStatus;
+use App\Models\CreatedFor;
 
 
 class GeneralController extends Controller
@@ -226,5 +227,10 @@ class GeneralController extends Controller
     public function resident_status(ResidentStatus $resident_status)
     {
         return $this->successResponse(new CommonCollection($resident_status->select('id','name')->get()) , 200,'Successfully returned all resident status');
+    }
+
+    public function created_for(CreatedFor $created_for)
+    {
+        return $this->successResponse(new CommonCollection($created_for->select('id','name')->get()) , 200,'Successfully returned all created for list');
     }
 }

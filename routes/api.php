@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\GeneralController;
 use App\Http\Controllers\api\AuthController;
-use App\Http\Controllers\api\UserController;
-use App\Http\Controllers\api\CurrencyController;
+use App\Http\Controllers\api\LeadController;
+use App\Http\Controllers\api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,7 @@ use App\Http\Controllers\api\CurrencyController;
 
 
 //General api's for registeration form
+Route::get('created_for',[GeneralController::class, 'created_for'])->name('created_for');
 Route::get('religion',[GeneralController::class, 'religion'])->name('religion');
 Route::get('caste/{id}',[GeneralController::class, 'caste'])->name('caste');
 Route::get('sub_caste/{id}',[GeneralController::class, 'sub_caste'])->name('sub_caste');
@@ -65,9 +66,13 @@ Route::get('resident_status',[GeneralController::class, 'resident_status'])->nam
 Route::post('/register',[AuthController::class, 'register'])->name('register');
 Route::post('/login',[AuthController::class, 'login'])->name('login');
 
+//Lead Creation
+Route::post('/basic_detail',[LeadController::class, 'basic_detail'])->name('basic_detail');
+Route::post('/personal_religion_details/{id}',[LeadController::class, 'personal_religion_details'])->name('personal_religion_details');
+
 
 //Individual Profile View
-Route::get('user/{id}',[UserController::class, 'user'])->name('user');
+Route::get('profile/{id}',[ProfileController::class, 'profile'])->name('profile');
 
 
 
